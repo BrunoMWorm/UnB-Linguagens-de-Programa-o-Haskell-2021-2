@@ -35,6 +35,7 @@ howManyEqual a b c    | allEqual a b c = 3
                       | (a == b) || (b == c) || (a == c) = 2
                       | otherwise = 0
 
+-- Obs: zero é uma semana válida, correspondente à primeira semana
 sales :: Int -> Int
 sales n = n + 3
 
@@ -75,3 +76,50 @@ myXor True x = myNot x
 
 -- Para próxima aula: Exercício do slide 19
 -- Instalação do ambiente Haskell
+
+weeklySalesEqualToS :: Int -> Int -> Int
+weeklySalesEqualToS s 0
+        | s == sales 0 = 1
+        | otherwise = 0
+weeklySalesEqualToS s n
+        | s == sales n = 1 + weeklySalesEqualToS s (n - 1)
+        | otherwise = weeklySalesEqualToS s (n - 1)
+
+makeSpaces :: Int -> String
+makeSpaces 0 = ""
+-- Usando concatenação de strings, o desempenho pode ser afeto
+-- makeSpaces n = " " ++ makeSpaces (n - 1)
+-- Param melhor
+makeSpaces n = ' ' : makeSpaces (n - 1)
+
+pushRight :: Int -> String -> String
+pushRight n str = str ++ makeSpaces n
+
+averageSales :: Int -> Float
+averageSales n = fromIntegral (totalSales n) / fromIntegral (n + 1)
+
+addPair :: (Int,Int) -> Int
+addPair (x,y) = x+y
+
+type Name = String
+type Age = Int
+type Phone = Int
+type Person = (Name, Age, Phone)
+
+name :: Person -> Name
+-- Esse underline: significa que não nos importamos com o valor que está ali
+name (n,_,_) = n
+
+
+sumSquares :: Int -> Int -> Int
+
+-- Com where
+sumSquares x y = sq x + sq y
+        where sq z = z * z
+
+-- Com let
+sumSquares2 x y =    let    sqX = x * x
+                            sqY = y * y
+                     in     sqX + sqY
+
+-- Para próxima aula: exercício do slide 33
