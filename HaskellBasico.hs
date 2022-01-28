@@ -122,4 +122,21 @@ sumSquares2 x y =    let    sqX = x * x
                             sqY = y * y
                      in     sqX + sqY
 
--- Para próxima aula: exercício do slide 33
+-- Para próxima aula: exercício do slide 33,
+oneRoot :: Float -> Float -> Float -> Float
+oneRoot a b c = -b/(2.0*a)
+
+twoRoots :: Float -> Float -> Float -> (Float, Float)
+twoRoots a b c = (d-e, d+e)
+    where   d = -b/(2.0*a)
+            e = sqrt(b^2-4.0*a*c)/(2.0*a)
+
+roots :: Float -> Float -> Float -> String
+roots a b c     | b^2 == 4.0*a*c = show (oneRoot a b c)
+                | b^2 > 4.0*a*c = show f ++ " " ++ show s
+                | otherwise = "no roots"
+    where (f,s) = twoRoots a b c
+
+-- X² - 5x + 6 = 0 ==> "2.0 3.0"
+-- X² - 2x + 1 = 0 ==> "1.0"
+-- X² - 2x + 4 = 0 ==> "no roots"
